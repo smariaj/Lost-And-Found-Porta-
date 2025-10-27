@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lost & Found - Reuniting What Matters</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* all your CSS stays exactly the same */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f8f4f4 0%, #f0e6e6 100%);
@@ -18,388 +14,65 @@
             color: #5d2e2e;
             line-height: 1.6;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header & Navigation */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e8d6d6;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-            color: #800020;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #800020;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #5d2e2e;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: #fff9f9;
-            color: #800020;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #800020 0%, #a52a2a 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #70001c 0%, #952525 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(128, 0, 32, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #800020;
-            border: 2px solid #800020;
-        }
-
-        .btn-secondary:hover {
-            background: #800020;
-            color: white;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 160px 0 100px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(128, 0, 32, 0.05) 0%, transparent 70%);
-            z-index: -1;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            color: #800020;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(135deg, #800020 0%, #a52a2a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: #a05252;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        /* Item Categories */
-        .item-categories {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .category {
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(128, 0, 32, 0.1);
-            border: 1px solid #e8d6d6;
-            text-align: center;
-            width: 120px;
-            transition: all 0.3s ease;
-        }
-
-        .category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(128, 0, 32, 0.15);
-        }
-
-        .icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #e8d6d6; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { font-size: 2rem; color: #800020; }
+        .logo-text { font-size: 1.8rem; font-weight: 700; color: #800020; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-link { color: #5d2e2e; text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: 25px; transition: all 0.3s ease; }
+        .nav-link:hover { background: #fff9f9; color: #800020; }
+        .btn { padding: 12px 30px; border: none; border-radius: 25px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(135deg, #800020 0%, #a52a2a 100%); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #70001c 0%, #952525 100%); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(128, 0, 32, 0.3); }
+        .btn-secondary { background: transparent; color: #800020; border: 2px solid #800020; }
+        .btn-secondary:hover { background: #800020; color: white; }
+        .hero { padding: 160px 0 100px; text-align: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(128, 0, 32, 0.05) 0%, transparent 70%); z-index: -1; }
+        .hero h1 { font-size: 4rem; font-weight: 800; color: #800020; margin-bottom: 20px; line-height: 1.2; }
+        .hero-gradient { background: linear-gradient(135deg, #800020 0%, #a52a2a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.4rem; color: #a05252; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+        .item-categories { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .category { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(128, 0, 32, 0.1); border: 1px solid #e8d6d6; text-align: center; width: 120px; transition: all 0.3s ease; }
+        .category:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(128, 0, 32, 0.15); }
+        .icon { font-size: 2.5rem; margin-bottom: 10px; }
         .icon-keys { color: #800020; }
         .icon-phone { color: #a52a2a; }
         .icon-wallet { color: #800020; }
         .icon-documents { color: #a52a2a; }
-
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: #800020;
-            margin-bottom: 15px;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #a05252;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            background: #fff9f9;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid #e8d6d6;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(128, 0, 32, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #800020;
-        }
-
-        .feature-title {
-            font-size: 1.4rem;
-            color: #800020;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .feature-description {
-            color: #5d2e2e;
-            line-height: 1.6;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 100px 0;
-            background: #f8f4f4;
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            counter-reset: step-counter;
-        }
-
-        .step {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            position: relative;
-            border: 1px solid #e8d6d6;
-        }
-
-        .step::before {
-            counter-increment: step-counter;
-            content: counter(step-counter);
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #800020 0%, #a52a2a 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .step-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #800020;
-        }
-
-        .step-title {
-            font-size: 1.3rem;
-            color: #800020;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        /* Footer */
-        .footer {
-            background: #5d2e2e;
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h3 {
-            color: #f0e6e6;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #a05252;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #a05252;
-            color: #a05252;
-        }
-
-        /* Responsive Design */
+        .features { padding: 100px 0; background: white; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-title { font-size: 2.5rem; color: #800020; margin-bottom: 15px; }
+        .section-subtitle { font-size: 1.2rem; color: #a05252; max-width: 600px; margin: 0 auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .feature-card { background: #fff9f9; padding: 40px 30px; border-radius: 20px; text-align: center; border: 1px solid #e8d6d6; transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(128, 0, 32, 0.1); }
+        .feature-icon { font-size: 3rem; margin-bottom: 20px; color: #800020; }
+        .feature-title { font-size: 1.4rem; color: #800020; margin-bottom: 15px; font-weight: 700; }
+        .feature-description { color: #5d2e2e; line-height: 1.6; }
+        .how-it-works { padding: 100px 0; background: #f8f4f4; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; counter-reset: step-counter; }
+        .step { background: white; padding: 40px 30px; border-radius: 20px; text-align: center; position: relative; border: 1px solid #e8d6d6; }
+        .step::before { counter-increment: step-counter; content: counter(step-counter); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #800020 0%, #a52a2a 100%); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+        .footer { background: #5d2e2e; color: white; padding: 60px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-section h3 { color: #f0e6e6; margin-bottom: 20px; font-size: 1.3rem; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #a05252; text-decoration: none; transition: color 0.3s ease; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #a05252; color: #a05252; }
         @media (max-width: 768px) {
-            .nav {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 200px;
-                justify-content: center;
-            }
-
-            .item-categories {
-                gap: 20px;
-            }
-
-            .category {
-                width: 100px;
-                padding: 20px;
-            }
+            .nav { flex-direction: column; gap: 20px; }
+            .nav-links { flex-direction: column; gap: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 200px; justify-content: center; }
+            .item-categories { gap: 20px; }
+            .category { width: 100px; padding: 20px; }
         }
     </style>
 </head>
@@ -408,13 +81,13 @@
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="#" class="logo">
+                <a href="/" class="logo">
                     <span class="logo-icon">🔍</span>
                     <span class="logo-text">Lost & Found</span>
                 </a>
                 <div class="nav-links">
-                    <a href="#" class="nav-link">Login</a>
-                    <a href="#" class="btn btn-primary">Get Started</a>
+                    <a href="/login" class="nav-link">Login</a>
+                    <a href="/register" class="btn btn-primary">Get Started</a>
                 </div>
             </nav>
         </div>
@@ -432,37 +105,41 @@
             </p>
             
             <div class="hero-buttons">
-                <a href="#" class="btn btn-primary">
+                <a href="/register" class="btn btn-primary">
                     <span>🚀</span> Get Started Free
                 </a>
-                <a href="#" class="btn btn-secondary">
+                <a href="/login" class="btn btn-secondary">
                     <span>🔑</span> Sign In
                 </a>
             </div>
 
             <div class="item-categories">
-                <div class="category">
-                    <div class="icon icon-keys">🔑</div>
-                    <div>Keys</div>
-                </div>
-                <div class="category">
-                    <div class="icon icon-phone">📱</div>
-                    <div>Phones</div>
-                </div>
-                <div class="category">
-                    <div class="icon icon-wallet">👛</div>
-                    <div>Wallets</div>
-                </div>
-                <div class="category">
-                    <div class="icon icon-documents">📄</div>
-                    <div>Documents</div>
-                </div>
+           <div class="category">
+    <div class="icon icon-keys">🔑</div>
+    <div>Keys</div>
+</div>
+
+<div class="category">
+    <div class="icon icon-phone">📱</div>
+    <div>Phones</div>
+</div>
+
+<div class="category">
+    <div class="icon icon-wallet">👛</div>
+    <div>Wallets</div>
+</div>
+
+<div class="category">
+    <div class="icon icon-documents">📄</div>
+    <div>Documents</div>
+</div>
+
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Why Choose Lost & Found?</h2>
@@ -489,7 +166,7 @@
     </section>
 
     <!-- How It Works -->
-    <section class="how-it-works">
+    <section class="how-it-works" id="how">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">How It Works</h2>
@@ -499,7 +176,7 @@
                 <div class="step">
                     <div class="step-icon">📝</div>
                     <h3 class="step-title">Report</h3>
-                    <p>Report a lost or found item with details and photos</p>
+                    <p><a href="/add_item" style="color:#800020; text-decoration:none;">Report a lost or found item</a> with details and photos</p>
                 </div>
                 <div class="step">
                     <div class="step-icon">🔍</div>
@@ -531,10 +208,10 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Report Item</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#how">How It Works</a></li>
+                        <li><a href="/add_item">Report Item</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -545,13 +222,9 @@
     </footer>
 
     <script>
-        // Add scroll animation for features
+        // Scroll animations
         document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -560,8 +233,6 @@
                     }
                 });
             }, observerOptions);
-
-            // Animate feature cards and steps
             document.querySelectorAll('.feature-card, .step').forEach(element => {
                 element.style.opacity = '0';
                 element.style.transform = 'translateY(30px)';
