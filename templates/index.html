@@ -167,15 +167,15 @@
             margin-bottom: 60px;
         }
 
-        /* Floating Icons */
-        .floating-icons {
+        /* Item Categories */
+        .item-categories {
             display: flex;
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
         }
 
-        .floating-icon {
+        .category {
             background: white;
             padding: 25px;
             border-radius: 20px;
@@ -184,24 +184,11 @@
             text-align: center;
             width: 120px;
             transition: all 0.3s ease;
-            animation: float 3s ease-in-out infinite;
         }
 
-        .floating-icon:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .floating-icon:nth-child(3) {
-            animation-delay: 1s;
-        }
-
-        .floating-icon:nth-child(4) {
-            animation-delay: 1.5s;
-        }
-
-        .floating-icon:hover {
-            transform: translateY(-10px);
-            animation-play-state: paused;
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(128, 0, 32, 0.15);
         }
 
         .icon {
@@ -212,12 +199,7 @@
         .icon-keys { color: #800020; }
         .icon-phone { color: #a52a2a; }
         .icon-wallet { color: #800020; }
-        .icon-pet { color: #a52a2a; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
+        .icon-documents { color: #a52a2a; }
 
         /* Features Section */
         .features {
@@ -259,8 +241,8 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(128, 0, 32, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(128, 0, 32, 0.1);
         }
 
         .feature-icon {
@@ -333,43 +315,6 @@
             color: #800020;
             margin-bottom: 15px;
             font-weight: 700;
-        }
-
-        /* Flash Messages */
-        .flash-messages {
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1001;
-            width: 90%;
-            max-width: 500px;
-        }
-
-        .alert {
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-weight: 500;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .alert-success {
-            background: #d1f2eb;
-            color: #27ae60;
-            border-left: 4px solid #27ae60;
-        }
-
-        .alert-error {
-            background: #fff5f5;
-            color: #e74c3c;
-            border-left: 4px solid #e74c3c;
-        }
-
-        .alert-info {
-            background: #e8f4fd;
-            color: #3498db;
-            border-left: 4px solid #3498db;
         }
 
         /* Footer */
@@ -447,78 +392,29 @@
                 justify-content: center;
             }
 
-            .floating-icons {
+            .item-categories {
                 gap: 20px;
             }
 
-            .floating-icon {
+            .category {
                 width: 100px;
                 padding: 20px;
             }
         }
-
-        /* User Welcome Section */
-        .user-welcome {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            margin: 40px auto;
-            max-width: 600px;
-            box-shadow: 0 10px 30px rgba(128, 0, 32, 0.1);
-            border: 1px solid #e8d6d6;
-        }
-
-        .user-welcome h2 {
-            color: #800020;
-            margin-bottom: 15px;
-        }
-
-        .user-welcome p {
-            color: #5d2e2e;
-            margin-bottom: 20px;
-        }
-
-        .user-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
     </style>
 </head>
 <body>
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-
     <!-- Header -->
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="{{ url_for('index') }}" class="logo">
+                <a href="#" class="logo">
                     <span class="logo-icon">🔍</span>
                     <span class="logo-text">Lost & Found</span>
                 </a>
                 <div class="nav-links">
-                    {% if current_user.is_authenticated %}
-                        {% if current_user.role == 'admin' %}
-                            <a href="{{ url_for('admin_dashboard') }}" class="nav-link">Admin Dashboard</a>
-                        {% else %}
-                            <a href="{{ url_for('dashboard') }}" class="nav-link">My Dashboard</a>
-                        {% endif %}
-                        <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('login') }}" class="nav-link">Login</a>
-                        <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
-                    {% endif %}
+                    <a href="#" class="nav-link">Login</a>
+                    <a href="#" class="btn btn-primary">Get Started</a>
                 </div>
             </nav>
         </div>
@@ -535,55 +431,35 @@
                 We're here to help reunite lost items with their owners. Join our community of helpers today!
             </p>
             
-            {% if not current_user.is_authenticated %}
             <div class="hero-buttons">
-                <a href="{{ url_for('register') }}" class="btn btn-primary">
+                <a href="#" class="btn btn-primary">
                     <span>🚀</span> Get Started Free
                 </a>
-                <a href="{{ url_for('login') }}" class="btn btn-secondary">
+                <a href="#" class="btn btn-secondary">
                     <span>🔑</span> Sign In
                 </a>
             </div>
-            {% endif %}
 
-            <div class="floating-icons">
-                <div class="floating-icon">
+            <div class="item-categories">
+                <div class="category">
                     <div class="icon icon-keys">🔑</div>
                     <div>Keys</div>
                 </div>
-                <div class="floating-icon">
+                <div class="category">
                     <div class="icon icon-phone">📱</div>
                     <div>Phones</div>
                 </div>
-                <div class="floating-icon">
+                <div class="category">
                     <div class="icon icon-wallet">👛</div>
                     <div>Wallets</div>
                 </div>
-                <div class="floating-icon">
-                    <div class="icon icon-pet">🐾</div>
-                    <div>Pets</div>
+                <div class="category">
+                    <div class="icon icon-documents">📄</div>
+                    <div>Documents</div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- User Welcome Section -->
-    {% if current_user.is_authenticated %}
-    <div class="container">
-        <div class="user-welcome">
-            <h2>Welcome back, {{ current_user.name }}! 👋</h2>
-            <p>Ready to continue helping reunite lost items with their owners?</p>
-            <div class="user-actions">
-                {% if current_user.role == 'admin' %}
-                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">Admin Dashboard</a>
-                {% else %}
-                    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">My Dashboard</a>
-                    <a href="{{ url_for('add_item') }}" class="btn btn-secondary">Report Item</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endif %}
 
     <!-- Features Section -->
     <section class="features">
@@ -653,34 +529,24 @@
                     <p>Reuniting what's lost with what's found, one item at a time.</p>
                 </div>
                 <div class="footer-section">
-                   <!-- <h3>Support</h3>--->
+                    <h3>Quick Links</h3>
                     <ul class="footer-links">
-                       <!-- <li><a href="#">Help Center</a></li>--->
-                       <!--<li><a href="#">Contact Us</a></li>--->
-                       <!--<li><a href="#">Privacy Policy</a></li>--->
-                       <!--<li><a href="#">Terms of Service</a></li>-->
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Report Item</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Lost & Found. </p>
+                <p>&copy; 2025 Lost & Found. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Auto-hide flash messages after 5 seconds
+        // Add scroll animation for features
         document.addEventListener('DOMContentLoaded', function() {
-            const flashMessages = document.querySelectorAll('.alert');
-            flashMessages.forEach(message => {
-                setTimeout(() => {
-                    message.style.opacity = '0';
-                    message.style.transform = 'translateY(-20px)';
-                    setTimeout(() => message.remove(), 300);
-                }, 5000);
-            });
-
-            // Add scroll animation for features
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
