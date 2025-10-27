@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Lost & Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f4f4 0%, #f0e6e6 100%);
+            min-height: 100vh;
+            color: #5d2e2e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(128, 0, 32, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #e8d6d6;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-header h1 {
+            color: #800020;
+            font-size: 2.2rem;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, #800020 0%, #a52a2a 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #800020;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #e8d6d6;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            border-color: #800020;
+            background: #fff9f9;
+        }
+
+        /* Stats Overview */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.1);
+            border: 1px solid #e8d6d6;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #800020;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #a05252;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Main Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(128, 0, 32, 0.1);
+            padding: 25px;
+            border: 1px solid #e8d6d6;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0e6e6;
+        }
+
+        .section-title {
+            color: #800020;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .section-badge {
+            background: #800020;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Found Items List */
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .item-card {
+            border: 2px solid #e8d6d6;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            border-color: #800020;
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.1);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .item-title {
+            color: #800020;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .item-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .item-tag {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag-found {
+            background: #f0fff4;
+            color: #27ae60;
+            border: 1px solid #d1f2eb;
+        }
+
+        .tag-lost {
+            background: #fff5f5;
+            color: #e74c3c;
+            border: 1px solid #fadbd8;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-with-finder { background: #e8f4fd; color: #3498db; }
+        .status-pending { background: #fef9e7; color: #f39c12; }
+        .status-returned { background: #d1f2eb; color: #27ae60; }
+        .status-center { background: #f4ecf7; color: #8e44ad; }
+
+        .item-details {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 20px;
+            margin-bottom: 15px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #5d2e2e;
+        }
+
+        .item-image {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #e8d6d6;
+        }
+
+        /* Matches Section */
+        .matches-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0e6e6;
+        }
+
+        .matches-title {
+            color: #800020;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .match-badge {
+            background: #800020;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .matches-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .match-card {
+            background: #fff9f9;
+            border: 1px solid #e8d6d6;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .match-title {
+            color: #5d2e2e;
+            font-weight: 600;
+        }
+
+        .match-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        .no-matches {
+            text-align: center;
+            color: #a05252;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #800020 0%, #a52a2a 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #70001c 0%, #952525 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f8f4f4;
+            color: #800020;
+            border: 1px solid #e8d6d6;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: #800020;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219955;
+        }
+
+        /* Forms */
+        .status-form {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0e6e6;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .form-select {
+            padding: 8px 12px;
+            border: 2px solid #e8d6d6;
+            border-radius: 6px;
+            background: #fdfafa;
+            color: #5d2e2e;
+            font-weight: 500;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #800020;
+        }
+
+        /* Pending Items */
+        .pending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .pending-card {
+            background: #fff9f9;
+            border: 2px solid #e8d6d6;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .pending-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .pending-title {
+            color: #800020;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a05252;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #800020;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .item-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .item-meta {
+                justify-content: center;
+            }
+            
+            .form-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-info">
+                    <span class="admin-badge">Administrator</span>
+                    <span>Welcome, {{ current_user.name }}</span>
+                    <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+                </div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="{{ url_for('admin_history') }}" class="nav-link">📋 View History</a>
+                <a href="{{ url_for('dashboard') }}" class="nav-link">👤 User View</a>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ found_items_with_matches|length }}</div>
+                <div class="stat-label">Active Found Items</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ pending_items|length }}</div>
+                <div class="stat-label">Pending Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">
+                    {{ found_items_with_matches|selectattr('matches')|map('length')|sum }}
+                </div>
+                <div class="stat-label">Potential Matches</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">
+                    {{ found_items_with_matches|selectattr('item.status', 'equalto', 'Returned to Owner')|list|length }}
+                </div>
+                <div class="stat-label">Items Returned</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Main Content - Found Items with Matches -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Found Items Management</h2>
+                    <span class="section-badge">{{ found_items_with_matches|length }} items</span>
+                </div>
+
+                {% if found_items_with_matches %}
+                <div class="items-list">
+                    {% for f in found_items_with_matches %}
+                    <div class="item-card">
+                        <div class="item-header">
+                            <div>
+                                <h3 class="item-title">{{ f.item.title }}</h3>
+                                <div class="item-meta">
+                                    <span class="item-tag tag-found">Found Item</span>
+                                    <span class="item-tag">{{ f.item.category }}</span>
+                                </div>
+                            </div>
+                            <span class="status-badge status-{{ f.item.status|lower|replace(' ', '-') }}">
+                                {{ f.item.status }}
+                            </span>
+                        </div>
+
+                        <div class="item-details">
+                            <span class="detail-label">Description:</span>
+                            <span>{{ f.item.description }}</span>
+                            
+                            <span class="detail-label">Location:</span>
+                            <span>{{ f.item.location }}</span>
+                            
+                            <span class="detail-label">Date Found:</span>
+                            <span>{{ f.item.date }}</span>
+                            
+                            {% if f.item.image_path %}
+                            <span class="detail-label">Image:</span>
+                            <img src="{{ url_for('static', filename=f.item.image_path) }}" 
+                                 alt="Found item image" class="item-image">
+                            {% endif %}
+                        </div>
+
+                        <!-- Update Status Form -->
+                        <form action="{{ url_for('update_status', item_id=f.item.id) }}" method="POST" class="status-form">
+                            <div class="form-group">
+                                <label><strong>Update Status:</strong></label>
+                                <select name="status" class="form-select">
+                                    <option value="With Finder" {% if f.item.status=='With Finder' %}selected{% endif %}>With Finder</option>
+                                    <option value="At Lost & Found Center" {% if f.item.status=='At Lost & Found Center' %}selected{% endif %}>At Lost & Found Center</option>
+                                    <option value="Returned to Owner" {% if f.item.status=='Returned to Owner' %}selected{% endif %}>Returned to Owner</option>
+                                    <option value="Pending Verification" {% if f.item.status=='Pending Verification' %}selected{% endif %}>Pending Verification</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary">Update Status</button>
+                            </div>
+                        </form>
+
+                        <!-- Matches Section -->
+                        <div class="matches-section">
+                            <h4 class="matches-title">
+                                Potential Matches
+                                {% if f.matches %}
+                                <span class="match-badge">{{ f.matches|length }}</span>
+                                {% endif %}
+                            </h4>
+                            
+                            {% if f.matches %}
+                            <div class="matches-list">
+                                {% for m in f.matches %}
+                                <div class="match-card">
+                                    <div class="match-header">
+                                        <span class="match-title">{{ m.title }} ({{ m.category }})</span>
+                                        <span class="status-badge status-{{ m.status|lower|replace(' ', '-') }}">
+                                            {{ m.status }}
+                                        </span>
+                                    </div>
+                                    <div class="item-details">
+                                        <span class="detail-label">Location:</span>
+                                        <span>{{ m.location }}</span>
+                                        
+                                        <span class="detail-label">Date Lost:</span>
+                                        <span>{{ m.date }}</span>
+                                        
+                                        <span class="detail-label">Description:</span>
+                                        <span>{{ m.description }}</span>
+                                        
+                                        {% if m.image_path %}
+                                        <span class="detail-label">Image:</span>
+                                        <img src="{{ url_for('static', filename=m.image_path) }}" 
+                                             alt="Lost item image" class="match-image">
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Verify Match Form -->
+                                    {% if f.item.status != 'Returned to Owner' and m.status != 'Returned to Owner' %}
+                                    <div class="action-buttons">
+                                        <form action="{{ url_for('verify_match') }}" method="POST">
+                                            <input type="hidden" name="found_id" value="{{ f.item.id }}">
+                                            <input type="hidden" name="lost_id" value="{{ m.id }}">
+                                            <button type="submit" class="btn btn-success" 
+                                                    onclick="return confirm('Mark these items as returned to owner? This action cannot be undone.')">
+                                                ✅ Mark as Returned
+                                            </button>
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <div class="no-matches">
+                                <p>No potential matches found yet.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <h3>No Found Items</h3>
+                    <p>There are currently no found items requiring management.</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar - Pending Items -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Pending Review</h2>
+                    <span class="section-badge">{{ pending_items|length }} items</span>
+                </div>
+
+                {% if pending_items %}
+                <div class="pending-list">
+                    {% for p in pending_items %}
+                    <div class="pending-card">
+                        <div class="pending-header">
+                            <span class="pending-title">{{ p.title }}</span>
+                            <span class="item-tag tag-{{ p.item_type|lower }}">{{ p.item_type }}</span>
+                        </div>
+                        <div class="item-details">
+                            <span class="detail-label">Category:</span>
+                            <span>{{ p.category }}</span>
+                            
+                            <span class="detail-label">Location:</span>
+                            <span>{{ p.location }}</span>
+                            
+                            <span class="detail-label">Date:</span>
+                            <span>{{ p.date }}</span>
+                            
+                            {% if p.image_path %}
+                            <span class="detail-label">Image:</span>
+                            <img src="{{ url_for('static', filename=p.image_path) }}" 
+                                 alt="Pending item image" class="match-image">
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Update Status Form for Pending Items -->
+                        <form action="{{ url_for('update_status', item_id=p.id) }}" method="POST" class="status-form">
+                            <div class="form-group">
+                                <select name="status" class="form-select">
+                                    <option value="With Finder">With Finder</option>
+                                    <option value="At Lost & Found Center">At Lost & Found Center</option>
+                                    <option value="Pending Verification" selected>Pending Verification</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary">Approve</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <h3>No Pending Items</h3>
+                    <p>All items have been reviewed and processed.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add confirmation for status updates
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusForms = document.querySelectorAll('.status-form');
+            statusForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    const statusSelect = this.querySelector('select[name="status"]');
+                    const newStatus = statusSelect.value;
+                    const itemCard = this.closest('.item-card') || this.closest('.pending-card');
+                    const itemTitle = itemCard ? itemCard.querySelector('.item-title, .pending-title').textContent : 'this item';
+                    
+                    if (newStatus === 'Returned to Owner') {
+                        if (!confirm(`Are you sure you want to mark "${itemTitle}" as returned? This will update the item status.`)) {
+                            e.preventDefault();
+                        }
+                    }
+                });
+            });
+
+            // Add loading states to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.type === 'submit') {
+                        this.classList.add('loading');
+                        this.disabled = true;
+                        this.innerHTML = 'Processing...';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
