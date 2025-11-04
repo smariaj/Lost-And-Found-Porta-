@@ -1585,3 +1585,37 @@ jinja2.exceptions.TemplateNotFound: 500.html
 2025-11-03 15:26:08,354 INFO werkzeug 127.0.0.1 - - [03/Nov/2025 15:26:08] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
 2025-11-03 15:26:08,364 INFO werkzeug 127.0.0.1 - - [03/Nov/2025 15:26:08] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
 2025-11-03 15:26:08,369 INFO werkzeug 127.0.0.1 - - [03/Nov/2025 15:26:08] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2025-11-04 12:50:25,040 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-11-04 12:50:25,041 INFO werkzeug [33mPress CTRL+C to quit[0m
+2025-11-04 12:50:25,044 INFO werkzeug  * Restarting with stat
+2025-11-04 12:50:25,706 WARNING werkzeug  * Debugger is active!
+2025-11-04 12:50:25,708 INFO werkzeug  * Debugger PIN: 392-578-424
+2025-11-04 12:50:45,304 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 12:50:45] "GET / HTTP/1.1" 200 -
+2025-11-04 13:02:22,156 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:22] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-11-04 13:02:22,664 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:22] "GET /dashboard HTTP/1.1" 200 -
+2025-11-04 13:02:23,158 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:23] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:23,180 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:23] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:23,182 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:23] "[36mGET /static/uploads/20064380f93449239668d8f4c244953c.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:23,191 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:23] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:25,657 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:25] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-11-04 13:02:25,693 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:25] "GET /login HTTP/1.1" 200 -
+2025-11-04 13:02:38,307 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:38] "POST /login HTTP/1.1" 200 -
+2025-11-04 13:02:50,821 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-11-04 13:02:50,961 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:50] "GET /dashboard HTTP/1.1" 200 -
+2025-11-04 13:02:51,059 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:51] "[36mGET /static/uploads/20064380f93449239668d8f4c244953c.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:51,064 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:51] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:51,065 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:51] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2025-11-04 13:02:51,069 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:02:51] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:04:19,691 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:19] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-11-04 13:04:19,703 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:19] "GET /login HTTP/1.1" 200 -
+2025-11-04 13:04:43,106 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:43] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-11-04 13:04:43,467 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:43] "GET /admin_dashboard HTTP/1.1" 200 -
+2025-11-04 13:04:43,524 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:43] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:04:43,537 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:43] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2025-11-04 13:04:43,538 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:43] "[36mGET /static/uploads/20064380f93449239668d8f4c244953c.jpg HTTP/1.1[0m" 304 -
+2025-11-04 13:04:43,541 INFO werkzeug 127.0.0.1 - - [04/Nov/2025 13:04:43] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2025-11-04 23:51:44,035 INFO werkzeug  * Detected change in 'C:\\projects\\lostandfound\\app.py', reloading
+2025-11-04 23:51:44,177 INFO werkzeug  * Restarting with stat
+2025-11-04 23:51:45,683 WARNING werkzeug  * Debugger is active!
+2025-11-04 23:51:45,689 INFO werkzeug  * Debugger PIN: 392-578-424
