@@ -496,6 +496,11 @@ def logout():
     flash('Logged out successfully.', 'info')
     return redirect(url_for('login'))
 
+@app.route('/how_it_works')
+def how_it_works():
+    return render_template('how_it_works.html')
+
+
 # ------------------ INITIALIZE DATABASE ------------------
 def init_db():
     with app.app_context():
@@ -516,4 +521,4 @@ if __name__ == '__main__':
     init_db()
     print("Server starting...")
     print("Admin: admin@lostfound.com / Admin123!")
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))

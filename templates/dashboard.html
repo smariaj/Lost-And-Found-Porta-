@@ -305,6 +305,12 @@
             object-fit: cover;
             border-radius: 6px;
             margin-top: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .match-image:hover {
+            transform: scale(1.05);
         }
 
         .no-matches {
@@ -411,9 +417,102 @@
             background: #e8f4fd;
             color: #3498db;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 8px;
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.8)}
+            to {transform: scale(1)}
+        }
+
+        #modalCaption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Clickable image indicator */
+        .clickable-indicator {
+            position: relative;
+            display: inline-block;
+        }
+
+        .clickable-indicator::after {
+            content: "🔍";
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(128, 0, 32, 0.7);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .match-image:hover + .clickable-indicator::after,
+        .clickable-indicator:hover::after {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption"></div>
+    </div>
+
     <div class="container">
         <!-- Header Section -->
         <div class="header">
@@ -550,8 +649,12 @@
                                     <strong>Date:</strong> {{ match.date }}
                                 </div>
                                 {% if match.image_path %}
-                                <img src="{{ url_for('static', filename=match.image_path) }}" 
-                                     alt="{{ match.title }}" class="match-image">
+                                <div class="clickable-indicator">
+                                    <img src="{{ url_for('static', filename=match.image_path) }}" 
+                                         alt="{{ match.title }}" 
+                                         class="match-image"
+                                         onclick="openModal('{{ url_for('static', filename=match.image_path) }}', '{{ match.title }} - {{ match.item_type }}')">
+                                </div>
                                 {% endif %}
                             </div>
                             {% endfor %}
@@ -579,6 +682,33 @@
     </div>
 
     <script>
+        // Get the modal
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImage");
+        var captionText = document.getElementById("modalCaption");
+
+        // Function to open modal with image
+        function openModal(imageSrc, caption) {
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+            captionText.innerHTML = caption;
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
         // Add confirmation for delete actions
         document.addEventListener('DOMContentLoaded', function() {
             const deleteForms = document.querySelectorAll('form[action*="delete_item"]');
