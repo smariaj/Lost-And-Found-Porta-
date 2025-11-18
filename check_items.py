@@ -1,4 +1,4 @@
-from app import app, db, Item  # import the app too!
+from app import app, db, Item  # import the app too
 
 with app.app_context():
     items = Item.query.all()
