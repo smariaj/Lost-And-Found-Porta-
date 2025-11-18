@@ -13,7 +13,7 @@ import logging
 from datetime import datetime
 import re
 
-# ------------------ CREATE FLASK APP ------------------
+# --------- CREATING A FLASK APP--------------
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
