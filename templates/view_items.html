@@ -1,0 +1,28 @@
+<h2>All Items</h2>
+
+<form method="get" action="{{ url_for('view_items') }}">
+    <input type="text" name="search" placeholder="Search by title, category, location" value="{{ search }}">
+    <select name="type">
+        <option value="">All</option>
+        <option value="Lost" {% if filter_type=='Lost' %}selected{% endif %}>Lost</option>
+        <option value="Found" {% if filter_type=='Found' %}selected{% endif %}>Found</option>
+    </select>
+    <button type="submit">Search / Filter</button>
+</form>
+
+<div class="grid">
+  {% for item in items %}
+    <div class="card">
+      {% if item.image_path %}
+        <img src="{{ url_for('static', filename=item.image_path) }}">
+      {% endif %}
+      <h3>{{ item.title }} ({{ item.item_type }})</h3>
+      <p><strong>Category:</strong> {{ item.category }}</p>
+      <p><strong>Location:</strong> {{ item.location }}</p>
+      <p><strong>Date:</strong> {{ item.date }}</p>
+      <p>{{ item.description }}</p>
+    </div>
+  {% else %}
+    <p>No items found.</p>
+  {% endfor %}
+</div>
