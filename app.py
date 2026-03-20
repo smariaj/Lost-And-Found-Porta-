@@ -15,7 +15,8 @@ import re
 
 # ------------------ CREATE FLASK APP ------------------
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/lostfound_db'
 app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 
 # ------------------ DATABASE & LOGIN ------------------
@@ -48,7 +49,8 @@ class Item(db.Model):
     item_type = db.Column(db.String(10), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     location = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.String(20), nullable=False)
+    #date = db.Column(db.String(20), nullable=False)
+    date = db.Column(db.Date, nullable=False)
     image_path = db.Column(db.String(200))
     status = db.Column(db.String(50), default='With Finder')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -152,14 +154,30 @@ def find_text_matches(new_item):
         potential_matches = Item.query.filter_by(item_type='Found').all()
 
     matches = []
+
     for item in potential_matches:
-        title_match = new_item.title.lower() in item.title.lower() or item.title.lower() in new_item.title.lower()
-        category_match = item.category.lower() == new_item.category.lower()
-        location_match = new_item.location.lower() in item.location.lower()
-        
-        if title_match and category_match and location_match:
+        score = 0
+
+        # Title match
+        if new_item.title.lower() in item.title.lower() or item.title.lower() in new_item.title.lower():
+            score += 2
+
+        # Description match (NEW - important)
+        if any(word in item.description.lower() for word in new_item.description.lower().split()):
+            score += 2
+
+        # Category match
+        if item.category.lower() == new_item.category.lower():
+            score += 1
+
+        # Location match
+        if new_item.location.lower() in item.location.lower():
+            score += 1
+
+        # Final decision
+        if score >= 3:   # threshold
             matches.append(item)
-            
+
     return matches
 
 # ------------------ VALIDATION ------------------
@@ -386,8 +404,8 @@ def add_item():
         item_type = request.form.get('item_type', '')
         category = request.form.get('category', '').strip()
         location = request.form.get('location', '').strip()
-        date = request.form.get('date', '')
-
+        date_str = request.form.get('date', '')
+        date = datetime.strptime(date_str, "%Y-%m-%d").date()
         if not all([title, description, item_type, category, location, date]):
             flash('All fields are required.', 'error')
             return render_template('add_item.html')
@@ -424,9 +442,16 @@ def add_item():
         db.session.add(new_item)
         db.session.commit()
 
-        matches = find_text_matches(new_item) + find_image_matches(new_item)
-        if matches:
+        text_matches = find_text_matches(new_item)
+        image_matches = find_image_matches(new_item)
+        all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+        '''if matches:
             match_titles = ', '.join([m.title for m in matches[:3]])
+            flash(f"Item reported! Potential matches: {match_titles}", 'success')
+        else:
+            flash('Item reported successfully!', 'success')'''
+        if all_matches:
+            match_titles = ', '.join([m.title for m in all_matches[:3]])
             flash(f"Item reported! Potential matches: {match_titles}", 'success')
         else:
             flash('Item reported successfully!', 'success')

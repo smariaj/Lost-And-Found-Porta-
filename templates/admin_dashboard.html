@@ -681,34 +681,37 @@
     <script>
         // Add confirmation for status updates
         document.addEventListener('DOMContentLoaded', function() {
-            const statusForms = document.querySelectorAll('.status-form');
-            statusForms.forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    const statusSelect = this.querySelector('select[name="status"]');
-                    const newStatus = statusSelect.value;
-                    const itemCard = this.closest('.item-card') || this.closest('.pending-card');
-                    const itemTitle = itemCard ? itemCard.querySelector('.item-title, .pending-title').textContent : 'this item';
-                    
-                    if (newStatus === 'Returned to Owner') {
-                        if (!confirm(`Are you sure you want to mark "${itemTitle}" as returned? This will update the item status.`)) {
-                            e.preventDefault();
-                        }
-                    }
-                });
-            });
 
-            // Add loading states to buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.type === 'submit') {
-                        this.classList.add('loading');
-                        this.disabled = true;
-                        this.innerHTML = 'Processing...';
-                    }
-                });
-            });
+    const statusForms = document.querySelectorAll('.status-form');
+
+    statusForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+
+            const statusSelect = this.querySelector('select[name="status"]');
+            const newStatus = statusSelect.value;
+
+            const itemCard = this.closest('.item-card') || this.closest('.pending-card');
+            const itemTitle = itemCard ? itemCard.querySelector('.item-title, .pending-title').textContent : 'this item';
+
+            // Confirmation for returned items
+            if (newStatus === 'Returned to Owner') {
+                if (!confirm(`Are you sure you want to mark "${itemTitle}" as returned? This will update the item status.`)) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            // Add loading state AFTER confirmation
+            const button = this.querySelector('button[type="submit"]');
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = 'Processing...';
+            }
+
         });
+    });
+
+});        
     </script>
 </body>
 </html>
