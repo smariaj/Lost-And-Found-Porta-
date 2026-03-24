@@ -1,4 +1,4 @@
-from lostandfound.app_copy import app, db, User
+from app import app, db, User
 
 with app.app_context():
     users = User.query.all()

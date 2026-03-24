@@ -6,19 +6,16 @@ from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from PIL import Image
 from uuid import uuid4
-# import imagehash
+import imagehash
 from functools import wraps
+import os
 import logging
 from datetime import datetime
 import re
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 # ------------------ CREATE FLASK APP ------------------
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/lostfound_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 
 # ------------------ DATABASE & LOGIN ------------------
@@ -51,8 +48,7 @@ class Item(db.Model):
     item_type = db.Column(db.String(10), nullable=False)
     category = db.Column(db.String(50), nullable=False)
     location = db.Column(db.String(100), nullable=False)
-    #date = db.Column(db.String(20), nullable=False)
-    date = db.Column(db.Date, nullable=False)
+    date = db.Column(db.String(20), nullable=False)
     image_path = db.Column(db.String(200))
     status = db.Column(db.String(50), default='With Finder')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -95,99 +91,9 @@ logging.basicConfig(
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-# app.config['MAIL_USERNAME'] = 'pictlostandfound@gmail.com'
-# app.config['MAIL_PASSWORD'] = 'vdcssyqgdfgwvadx'
-# app.config['MAIL_DEFAULT_SENDER'] = 'pictlostandfound@gmail.com'
-app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
-
-
+app.config['MAIL_USERNAME'] = 'your_email@gmail.com'
+app.config['MAIL_PASSWORD'] = 'your_app_password'
 mail = Mail(app)
-
-# Basic mail
-def send_html_email(subject, recipient, html_content):
-    try:
-        msg = Message(
-            subject=subject,
-            recipients=[recipient],
-            html=html_content
-        )
-        mail.send(msg)
-        logging.info(f"Email sent to {recipient}")
-    except Exception:
-        logging.exception("Email sending failed")
-
-# Person specific templates 
-# 1. Finder
-def send_returned_email_to_finder(finder_email, item):
-    html_content = f"""
-    <div style="font-family: Arial, sans-serif; padding:20px;">
-        <h2 style="color:#28a745;">Lost & Found Portal</h2>
-        <hr>
-
-        <p>Hello,</p>
-
-        <p>Great news! 🎉</p>
-
-        <p>The item you reported as <strong>FOUND</strong> has successfully reached its rightful owner.</p>
-
-        <div style="background-color:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;">
-            <strong>Item:</strong> {item.title}<br>
-            <strong>Category:</strong> {item.category}<br>
-            <strong>Location:</strong> {item.location}
-        </div>
-
-        <p>Thank you for your honesty and contribution to our community ❤️</p>
-
-        <br>
-        <p style="font-size:12px; color:gray;">
-            This is an automated email from Lost & Found Portal.
-        </p>
-    </div>
-    """
-
-    send_html_email(
-        subject="Item Successfully Returned to Owner",
-        recipient=finder_email,
-        html_content=html_content
-    )
-
-# 2. Owner
-def send_returned_email_to_owner(owner_email, item):
-    html_content = f"""
-    <div style="font-family: Arial, sans-serif; padding:20px;">
-        <h2 style="color:#007bff;">Lost & Found Portal</h2>
-        <hr>
-
-        <p>Hello,</p>
-
-        <p>Congratulations! 🎉</p>
-
-        <p>Your lost item has been successfully verified and returned to you.</p>
-
-        <div style="background-color:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;">
-            <strong>Item:</strong> {item.title}<br>
-            <strong>Category:</strong> {item.category}<br>
-            <strong>Location:</strong> {item.location}
-        </div>
-
-        <p>If you have already collected your item, no further action is required.</p>
-
-        <br>
-        <p style="font-size:12px; color:gray;">
-            Thank you for using Lost & Found Portal.
-        </p>
-    </div>
-    """
-
-    send_html_email(
-        subject="Your Item Has Been Returned",
-        recipient=owner_email,
-        html_content=html_content
-    )
-
 
 def send_match_email(to_email, new_item, matched_item):
     try:
@@ -208,7 +114,6 @@ Lost & Found Team"""
         mail.send(msg)
     except Exception as e:
         logging.error(f"Failed to send email: {e}")
-
 
 # ------------------ IMAGE MATCHING ------------------
 def find_image_matches(new_item):
@@ -247,30 +152,14 @@ def find_text_matches(new_item):
         potential_matches = Item.query.filter_by(item_type='Found').all()
 
     matches = []
-
     for item in potential_matches:
-        score = 0
-
-        # Title match
-        if new_item.title.lower() in item.title.lower() or item.title.lower() in new_item.title.lower():
-            score += 2
-
-        # Description match (NEW - important)
-        if any(word in item.description.lower() for word in new_item.description.lower().split()):
-            score += 2
-
-        # Category match
-        if item.category.lower() == new_item.category.lower():
-            score += 1
-
-        # Location match
-        if new_item.location.lower() in item.location.lower():
-            score += 1
-
-        # Final decision
-        if score >= 3:   # threshold
+        title_match = new_item.title.lower() in item.title.lower() or item.title.lower() in new_item.title.lower()
+        category_match = item.category.lower() == new_item.category.lower()
+        location_match = new_item.location.lower() in item.location.lower()
+        
+        if title_match and category_match and location_match:
             matches.append(item)
-
+            
     return matches
 
 # ------------------ VALIDATION ------------------
@@ -458,42 +347,11 @@ def update_status(item_id):
     item = Item.query.get_or_404(item_id)
     
     if new_status:
-        status_changed_to_returned = (new_status == 'Returned to Owner' and item.status != 'Returned to Owner')
-        
         item.status = new_status
         db.session.commit()
-        
-        if status_changed_to_returned:
-            user = User.query.get(item.user_id)
-            if user:
-                if item.item_type == 'Found':
-                    send_returned_email_to_finder(user.email, item)
-                elif item.item_type == 'Lost':
-                    send_returned_email_to_owner(user.email, item)
-                    
         flash(f"Status updated to {new_status}", 'success')
         
     return redirect(request.referrer or url_for('admin_dashboard'))
-
-# @app.route('/verify_match', methods=['POST'])
-# @login_required
-# @admin_required
-# def verify_match():
-#     found_id = request.form.get('found_id', type=int)
-#     lost_id = request.form.get('lost_id', type=int)
-    
-#     found_item = Item.query.get(found_id)
-#     lost_item = Item.query.get(lost_id)
-    
-#     if found_item and lost_item:
-#         found_item.status = 'Returned to Owner'
-#         lost_item.status = 'Returned to Owner'
-#         db.session.commit()
-#         flash('Items marked as returned.', 'success')
-#     else:
-#         flash('Invalid items.', 'error')
-        
-#     return redirect(url_for('admin_dashboard'))
 
 @app.route('/verify_match', methods=['POST'])
 @login_required
@@ -509,20 +367,7 @@ def verify_match():
         found_item.status = 'Returned to Owner'
         lost_item.status = 'Returned to Owner'
         db.session.commit()
-        # -----------------------------
-        # SEND EMAILS HERE
-        # -----------------------------
-
-        finder_user = User.query.get(found_item.user_id)
-        owner_user = User.query.get(lost_item.user_id)
-
-        if finder_user:
-            send_returned_email_to_finder(finder_user.email, found_item)
-
-        if owner_user:
-            send_returned_email_to_owner(owner_user.email, lost_item)
-
-        flash('Items marked as returned and emails sent.', 'success')
+        flash('Items marked as returned.', 'success')
     else:
         flash('Invalid items.', 'error')
         
@@ -541,8 +386,8 @@ def add_item():
         item_type = request.form.get('item_type', '')
         category = request.form.get('category', '').strip()
         location = request.form.get('location', '').strip()
-        date_str = request.form.get('date', '')
-        date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        date = request.form.get('date', '')
+
         if not all([title, description, item_type, category, location, date]):
             flash('All fields are required.', 'error')
             return render_template('add_item.html')
@@ -579,16 +424,9 @@ def add_item():
         db.session.add(new_item)
         db.session.commit()
 
-        text_matches = find_text_matches(new_item)
-        image_matches = find_image_matches(new_item)
-        all_matches = list({m.id: m for m in text_matches + image_matches}.values())
-        '''if matches:
+        matches = find_text_matches(new_item) + find_image_matches(new_item)
+        if matches:
             match_titles = ', '.join([m.title for m in matches[:3]])
-            flash(f"Item reported! Potential matches: {match_titles}", 'success')
-        else:
-            flash('Item reported successfully!', 'success')'''
-        if all_matches:
-            match_titles = ', '.join([m.title for m in all_matches[:3]])
             flash(f"Item reported! Potential matches: {match_titles}", 'success')
         else:
             flash('Item reported successfully!', 'success')
@@ -668,12 +506,8 @@ def init_db():
     with app.app_context():
         db.create_all()
         
-        # admin_email = 'admin@lostfound.com'
-        # admin_password = 'Admin123!'
-
-        admin_email = os.getenv('DEFAULT_ADMIN_EMAIL')
-        admin_password = os.getenv('DEFAULT_ADMIN_PASSWORD')
-
+        admin_email = 'admin@lostfound.com'
+        admin_password = 'Admin123!'
         
         if not User.query.filter_by(email=admin_email).first():
             hashed_password = generate_password_hash(admin_password, method='pbkdf2:sha256')

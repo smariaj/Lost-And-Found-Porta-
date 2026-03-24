@@ -1619,6 +1619,7 @@ jinja2.exceptions.TemplateNotFound: 500.html
 2025-11-04 23:51:44,177 INFO werkzeug  * Restarting with stat
 2025-11-04 23:51:45,683 WARNING werkzeug  * Debugger is active!
 2025-11-04 23:51:45,689 INFO werkzeug  * Debugger PIN: 392-578-424
+<<<<<<< HEAD
 2026-02-18 10:10:57,293 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2026-02-18 10:10:57,297 INFO werkzeug [33mPress CTRL+C to quit[0m
@@ -1859,3 +1860,192 @@ jinja2.exceptions.TemplateNotFound: 500.html
 2026-03-24 11:46:19,152 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 11:46:19] "GET /admin_dashboard HTTP/1.1" 200 -
 2026-03-24 11:47:35,497 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 11:47:35] "[32mGET /logout HTTP/1.1[0m" 302 -
 2026-03-24 11:47:35,507 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 11:47:35] "GET /login HTTP/1.1" 200 -
+=======
+2026-03-16 20:44:14,485 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-16 20:44:14,486 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-16 20:44:14,486 INFO werkzeug  * Restarting with stat
+2026-03-16 20:44:14,670 WARNING werkzeug  * Debugger is active!
+2026-03-16 20:44:14,674 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-16 20:44:32,367 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:44:32] "GET / HTTP/1.1" 200 -
+2026-03-16 20:44:38,991 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:44:38] "GET /login HTTP/1.1" 200 -
+2026-03-16 20:45:26,146 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:45:26] "POST /login HTTP/1.1" 200 -
+2026-03-16 20:50:08,967 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-16 20:50:08,967 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-16 20:50:08,968 INFO werkzeug  * Restarting with stat
+2026-03-16 20:50:09,143 WARNING werkzeug  * Debugger is active!
+2026-03-16 20:50:09,146 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-16 20:50:11,897 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:50:11] "GET / HTTP/1.1" 200 -
+2026-03-16 20:50:13,717 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:50:13] "GET /login HTTP/1.1" 200 -
+2026-03-16 20:50:26,498 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:50:26] "POST /login HTTP/1.1" 200 -
+2026-03-16 20:52:22,095 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:52:22] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-16 20:52:22,115 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:52:22] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 20:52:22,412 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:52:22] "GET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1" 200 -
+2026-03-16 20:52:22,413 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:52:22] "GET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1" 200 -
+2026-03-16 20:52:22,418 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:52:22] "GET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1" 200 -
+2026-03-16 20:54:03,364 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-16 20:54:03,364 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-16 20:54:03,365 INFO werkzeug  * Restarting with stat
+2026-03-16 20:54:03,538 WARNING werkzeug  * Debugger is active!
+2026-03-16 20:54:03,542 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-16 20:54:07,041 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:07] "GET / HTTP/1.1" 200 -
+2026-03-16 20:54:08,610 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:08] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-16 20:54:08,620 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:08] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2026-03-16 20:54:08,654 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:08] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 20:54:08,971 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:08] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-16 20:54:08,971 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:08] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 20:54:08,972 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:08] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 20:54:13,778 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:13] "[32mPOST /update_status/7 HTTP/1.1[0m" 302 -
+2026-03-16 20:54:13,790 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:13] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 20:54:14,073 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:14] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-16 20:54:14,075 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:14] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 20:54:14,075 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 20:54:14] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:06:48,245 INFO werkzeug  * Detected change in '/Users/tanishka/Downloads/Lost-And-Found-Porta--main-2/app_copy.py', reloading
+2026-03-16 21:06:48,272 INFO werkzeug  * Restarting with stat
+2026-03-16 21:06:48,459 WARNING werkzeug  * Debugger is active!
+2026-03-16 21:06:48,462 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-16 21:09:38,400 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-16 21:09:38,400 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-16 21:09:38,400 INFO werkzeug  * Restarting with stat
+2026-03-16 21:09:38,573 WARNING werkzeug  * Debugger is active!
+2026-03-16 21:09:38,577 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-16 21:10:01,107 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-16 21:10:01,107 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-16 21:10:01,107 INFO werkzeug  * Restarting with stat
+2026-03-16 21:10:01,279 WARNING werkzeug  * Debugger is active!
+2026-03-16 21:10:01,282 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-16 21:10:11,794 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:11] "GET / HTTP/1.1" 200 -
+2026-03-16 21:10:13,802 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:13] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-16 21:10:13,810 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:13] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2026-03-16 21:10:13,841 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:13] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 21:10:13,847 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:13] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:10:13,850 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:13] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:10:13,851 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:13] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-16 21:10:14,160 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:14] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:10:14,162 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:14] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-16 21:10:14,163 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:14] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:10:18,720 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:18] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-16 21:10:18,733 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:18] "GET /login HTTP/1.1" 200 -
+2026-03-16 21:10:40,974 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:40] "POST /login HTTP/1.1" 200 -
+2026-03-16 21:10:56,880 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:10:56] "POST /login HTTP/1.1" 200 -
+2026-03-16 21:11:12,876 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:11:12] "POST /login HTTP/1.1" 200 -
+2026-03-16 21:11:31,492 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:11:31] "GET /register HTTP/1.1" 200 -
+2026-03-16 21:11:53,173 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:11:53] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-03-16 21:11:53,183 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:11:53] "GET /login HTTP/1.1" 200 -
+2026-03-16 21:12:05,770 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:12:05] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-16 21:12:05,787 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:12:05] "GET /dashboard HTTP/1.1" 200 -
+2026-03-16 21:12:09,257 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:12:09] "GET /add_item HTTP/1.1" 200 -
+2026-03-16 21:12:55,245 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:12:55] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-16 21:12:55,256 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:12:55] "GET /dashboard HTTP/1.1" 200 -
+2026-03-16 21:13:00,601 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:13:00] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-16 21:13:00,611 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:13:00] "GET /login HTTP/1.1" 200 -
+2026-03-16 21:14:17,762 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:17] "POST /login HTTP/1.1" 200 -
+2026-03-16 21:14:19,543 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:19] "GET /register HTTP/1.1" 200 -
+2026-03-16 21:14:36,232 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:36] "[32mPOST /register HTTP/1.1[0m" 302 -
+2026-03-16 21:14:36,242 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:36] "GET /login HTTP/1.1" 200 -
+2026-03-16 21:14:49,319 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:49] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-16 21:14:49,330 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:49] "GET /dashboard HTTP/1.1" 200 -
+2026-03-16 21:14:50,813 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:14:50] "GET /add_item HTTP/1.1" 200 -
+2026-03-16 21:15:29,209 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:29] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-16 21:15:29,221 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:29] "GET /dashboard HTTP/1.1" 200 -
+2026-03-16 21:15:34,446 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:34] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-16 21:15:34,457 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:34] "GET /login HTTP/1.1" 200 -
+2026-03-16 21:15:45,551 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-16 21:15:45,562 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:45] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 21:15:45,846 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:45] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-16 21:15:45,847 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:45] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:15:45,848 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:15:45] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:16:14,113 INFO root Email sent to karpevaishnavi08@gmail.com
+2026-03-16 21:16:14,115 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:16:14] "[32mPOST /update_status/9 HTTP/1.1[0m" 302 -
+2026-03-16 21:16:14,133 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:16:14] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 21:16:14,153 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:16:14] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-16 21:16:14,154 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:16:14] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:16:14,155 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:16:14] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:26:01,837 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:26:01] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-16 21:26:02,131 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:26:02] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:26:02,131 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:26:02] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-16 21:26:02,131 INFO werkzeug 127.0.0.1 - - [16/Mar/2026 21:26:02] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-18 10:49:55,647 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-18 10:49:55,648 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-18 10:49:55,648 INFO werkzeug  * Restarting with stat
+2026-03-18 10:49:55,820 WARNING werkzeug  * Debugger is active!
+2026-03-18 10:49:55,825 INFO werkzeug  * Debugger PIN: 103-038-586
+2026-03-18 10:50:00,791 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:00] "GET / HTTP/1.1" 200 -
+2026-03-18 10:50:04,887 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:04] "GET /login HTTP/1.1" 200 -
+2026-03-18 10:50:25,347 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:25] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-18 10:50:25,366 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:25] "GET /dashboard HTTP/1.1" 200 -
+2026-03-18 10:50:37,697 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:37] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-18 10:50:37,704 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:37] "GET /login HTTP/1.1" 200 -
+2026-03-18 10:50:55,237 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:55] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-18 10:50:55,248 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:50:55] "GET /dashboard HTTP/1.1" 200 -
+2026-03-18 10:51:04,314 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:04] "GET /add_item HTTP/1.1" 200 -
+2026-03-18 10:51:41,879 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:41] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-18 10:51:41,890 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:41] "GET /dashboard HTTP/1.1" 200 -
+2026-03-18 10:51:45,939 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:45] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-18 10:51:45,946 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:45] "GET /login HTTP/1.1" 200 -
+2026-03-18 10:51:57,654 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:57] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-18 10:51:57,665 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:57] "GET /dashboard HTTP/1.1" 200 -
+2026-03-18 10:51:59,646 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:51:59] "GET /add_item HTTP/1.1" 200 -
+2026-03-18 10:52:37,659 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:52:37] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-18 10:52:37,671 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:52:37] "GET /dashboard HTTP/1.1" 200 -
+2026-03-18 10:53:59,185 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:53:59] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-18 10:53:59,194 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:53:59] "GET /login HTTP/1.1" 200 -
+2026-03-18 10:54:13,775 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:54:13] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-18 10:54:13,795 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:54:13] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-18 10:54:14,096 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:54:14] "GET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1" 200 -
+2026-03-18 10:54:14,097 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:54:14] "GET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1" 200 -
+2026-03-18 10:54:14,097 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:54:14] "GET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1" 200 -
+2026-03-18 10:55:49,356 INFO root Email sent to karpevaishnavi08@gmail.com
+2026-03-18 10:55:49,358 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:55:49] "[32mPOST /update_status/10 HTTP/1.1[0m" 302 -
+2026-03-18 10:55:49,376 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:55:49] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-18 10:55:49,394 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:55:49] "[36mGET /static/uploads/358e1b0e444c43c6863cda270912dcfc.jpeg HTTP/1.1[0m" 304 -
+2026-03-18 10:55:49,395 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:55:49] "[36mGET /static/uploads/adc29f847f0547a396d2cbf64befbf1d.jpg HTTP/1.1[0m" 304 -
+2026-03-18 10:55:49,395 INFO werkzeug 127.0.0.1 - - [18/Mar/2026 10:55:49] "[36mGET /static/uploads/b88c987cd50e4d27b70f437b21a547a2.jpg HTTP/1.1[0m" 304 -
+>>>>>>> new-email-feature
+2026-03-24 12:02:55,948 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-24 12:02:55,948 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-24 12:02:55,951 INFO werkzeug  * Restarting with stat
+2026-03-24 12:02:56,614 WARNING werkzeug  * Debugger is active!
+2026-03-24 12:02:56,617 INFO werkzeug  * Debugger PIN: 134-981-283
+2026-03-24 12:03:24,824 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-24 12:03:24,825 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-24 12:03:24,826 INFO werkzeug  * Restarting with stat
+2026-03-24 12:03:25,565 WARNING werkzeug  * Debugger is active!
+2026-03-24 12:03:25,569 INFO werkzeug  * Debugger PIN: 134-981-283
+2026-03-24 12:03:33,668 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:33] "GET / HTTP/1.1" 200 -
+2026-03-24 12:03:37,525 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:37] "GET /login HTTP/1.1" 200 -
+2026-03-24 12:03:50,461 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:50] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 12:03:50,501 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:50] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:03:56,748 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:56] "[32mPOST /delete_item/7 HTTP/1.1[0m" 302 -
+2026-03-24 12:03:56,771 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:56] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:03:59,078 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:03:59] "GET /add_item HTTP/1.1" 200 -
+2026-03-24 12:04:31,323 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:04:31] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-24 12:04:31,368 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:04:31] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:04:36,226 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:04:36] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-24 12:04:36,242 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:04:36] "GET /login HTTP/1.1" 200 -
+2026-03-24 12:04:45,894 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:04:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 12:04:45,905 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:04:45] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:05:04,152 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:04] "[32mPOST /delete_item/8 HTTP/1.1[0m" 302 -
+2026-03-24 12:05:04,171 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:04] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:05:07,589 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:07] "GET /add_item HTTP/1.1" 200 -
+2026-03-24 12:05:47,473 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:47] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-24 12:05:47,496 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:47] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:05:52,576 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:52] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-24 12:05:52,594 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:05:52] "GET /login HTTP/1.1" 200 -
+2026-03-24 12:06:00,342 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:00] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 12:06:00,354 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:00] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 12:06:03,790 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:03] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-24 12:06:03,803 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:03] "GET /login HTTP/1.1" 200 -
+2026-03-24 12:06:25,160 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:25] "POST /login HTTP/1.1" 200 -
+2026-03-24 12:06:41,495 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:41] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 12:06:41,531 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:41] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-24 12:06:56,404 INFO root Email sent to pictofesteventpco@gmail.com
+2026-03-24 12:06:56,407 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:56] "[32mPOST /update_status/10 HTTP/1.1[0m" 302 -
+2026-03-24 12:06:56,433 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:56] "GET /admin_dashboard HTTP/1.1" 200 -
