@@ -1,4 +1,4 @@
-from app import app, db, User
+from lostandfound.app_copy import app, db, User
 from werkzeug.security import generate_password_hash
 
 with app.app_context():
