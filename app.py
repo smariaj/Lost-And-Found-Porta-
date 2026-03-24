@@ -12,10 +12,12 @@ import os
 import logging
 from datetime import datetime
 import re
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ------------------ CREATE FLASK APP ------------------
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/lostfound_db'
 app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 
@@ -93,9 +95,99 @@ logging.basicConfig(
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'your_email@gmail.com'
-app.config['MAIL_PASSWORD'] = 'your_app_password'
+app.config['MAIL_USE_SSL'] = False
+# app.config['MAIL_USERNAME'] = 'pictlostandfound@gmail.com'
+# app.config['MAIL_PASSWORD'] = 'vdcssyqgdfgwvadx'
+# app.config['MAIL_DEFAULT_SENDER'] = 'pictlostandfound@gmail.com'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
+
+
 mail = Mail(app)
+
+# Basic mail
+def send_html_email(subject, recipient, html_content):
+    try:
+        msg = Message(
+            subject=subject,
+            recipients=[recipient],
+            html=html_content
+        )
+        mail.send(msg)
+        logging.info(f"Email sent to {recipient}")
+    except Exception:
+        logging.exception("Email sending failed")
+
+# Person specific templates 
+# 1. Finder
+def send_returned_email_to_finder(finder_email, item):
+    html_content = f"""
+    <div style="font-family: Arial, sans-serif; padding:20px;">
+        <h2 style="color:#28a745;">Lost & Found Portal</h2>
+        <hr>
+
+        <p>Hello,</p>
+
+        <p>Great news! 🎉</p>
+
+        <p>The item you reported as <strong>FOUND</strong> has successfully reached its rightful owner.</p>
+
+        <div style="background-color:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;">
+            <strong>Item:</strong> {item.title}<br>
+            <strong>Category:</strong> {item.category}<br>
+            <strong>Location:</strong> {item.location}
+        </div>
+
+        <p>Thank you for your honesty and contribution to our community ❤️</p>
+
+        <br>
+        <p style="font-size:12px; color:gray;">
+            This is an automated email from Lost & Found Portal.
+        </p>
+    </div>
+    """
+
+    send_html_email(
+        subject="Item Successfully Returned to Owner",
+        recipient=finder_email,
+        html_content=html_content
+    )
+
+# 2. Owner
+def send_returned_email_to_owner(owner_email, item):
+    html_content = f"""
+    <div style="font-family: Arial, sans-serif; padding:20px;">
+        <h2 style="color:#007bff;">Lost & Found Portal</h2>
+        <hr>
+
+        <p>Hello,</p>
+
+        <p>Congratulations! 🎉</p>
+
+        <p>Your lost item has been successfully verified and returned to you.</p>
+
+        <div style="background-color:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;">
+            <strong>Item:</strong> {item.title}<br>
+            <strong>Category:</strong> {item.category}<br>
+            <strong>Location:</strong> {item.location}
+        </div>
+
+        <p>If you have already collected your item, no further action is required.</p>
+
+        <br>
+        <p style="font-size:12px; color:gray;">
+            Thank you for using Lost & Found Portal.
+        </p>
+    </div>
+    """
+
+    send_html_email(
+        subject="Your Item Has Been Returned",
+        recipient=owner_email,
+        html_content=html_content
+    )
+
 
 def send_match_email(to_email, new_item, matched_item):
     try:
@@ -116,6 +208,7 @@ Lost & Found Team"""
         mail.send(msg)
     except Exception as e:
         logging.error(f"Failed to send email: {e}")
+
 
 # ------------------ IMAGE MATCHING ------------------
 def find_image_matches(new_item):
@@ -385,6 +478,19 @@ def verify_match():
         found_item.status = 'Returned to Owner'
         lost_item.status = 'Returned to Owner'
         db.session.commit()
+        # -----------------------------
+        # SEND EMAILS HERE
+        # -----------------------------
+
+        finder_user = User.query.get(found_item.user_id)
+        owner_user = User.query.get(lost_item.user_id)
+
+        if finder_user:
+            send_returned_email_to_finder(finder_user.email, found_item)
+
+        if owner_user:
+            send_returned_email_to_owner(owner_user.email, lost_item)
+            
         flash('Items marked as returned.', 'success')
     else:
         flash('Invalid items.', 'error')

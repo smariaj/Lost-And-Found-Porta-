@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -224,10 +225,25 @@
             font-weight: 600;
         }
 
-        .status-with-finder { background: #e8f4fd; color: #3498db; }
-        .status-pending { background: #fef9e7; color: #f39c12; }
-        .status-returned { background: #d1f2eb; color: #27ae60; }
-        .status-center { background: #f4ecf7; color: #8e44ad; }
+        .status-with-finder {
+            background: #e8f4fd;
+            color: #3498db;
+        }
+
+        .status-pending {
+            background: #fef9e7;
+            color: #f39c12;
+        }
+
+        .status-returned {
+            background: #d1f2eb;
+            color: #27ae60;
+        }
+
+        .status-center {
+            background: #f4ecf7;
+            color: #8e44ad;
+        }
 
         .item-details {
             display: grid;
@@ -437,16 +453,16 @@
                 gap: 15px;
                 text-align: center;
             }
-            
+
             .item-header {
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .item-meta {
                 justify-content: center;
             }
-            
+
             .form-group {
                 flex-direction: column;
                 align-items: stretch;
@@ -454,6 +470,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -466,7 +483,7 @@
                     <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
                 </div>
             </div>
-            
+
             <div class="nav-links">
                 <a href="{{ url_for('admin_history') }}" class="nav-link">📋 View History</a>
                 <a href="{{ url_for('dashboard') }}" class="nav-link">👤 User View</a>
@@ -525,29 +542,34 @@
                         <div class="item-details">
                             <span class="detail-label">Description:</span>
                             <span>{{ f.item.description }}</span>
-                            
+
                             <span class="detail-label">Location:</span>
                             <span>{{ f.item.location }}</span>
-                            
+
                             <span class="detail-label">Date Found:</span>
                             <span>{{ f.item.date }}</span>
-                            
+
                             {% if f.item.image_path %}
                             <span class="detail-label">Image:</span>
-                            <img src="{{ url_for('static', filename=f.item.image_path) }}" 
-                                 alt="Found item image" class="item-image">
+                            <img src="{{ url_for('static', filename=f.item.image_path) }}" alt="Found item image"
+                                class="item-image">
                             {% endif %}
                         </div>
 
                         <!-- Update Status Form -->
-                        <form action="{{ url_for('update_status', item_id=f.item.id) }}" method="POST" class="status-form">
+                        <form action="{{ url_for('update_status', item_id=f.item.id) }}" method="POST"
+                            class="status-form">
                             <div class="form-group">
                                 <label><strong>Update Status:</strong></label>
                                 <select name="status" class="form-select">
-                                    <option value="With Finder" {% if f.item.status=='With Finder' %}selected{% endif %}>With Finder</option>
-                                    <option value="At Lost & Found Center" {% if f.item.status=='At Lost & Found Center' %}selected{% endif %}>At Lost & Found Center</option>
-                                    <option value="Returned to Owner" {% if f.item.status=='Returned to Owner' %}selected{% endif %}>Returned to Owner</option>
-                                    <option value="Pending Verification" {% if f.item.status=='Pending Verification' %}selected{% endif %}>Pending Verification</option>
+                                    <option value="With Finder" {% if f.item.status=='With Finder' %}selected{% endif
+                                        %}>With Finder</option>
+                                    <option value="At Lost & Found Center" {% if f.item.status=='At Lost & Found Center'
+                                        %}selected{% endif %}>At Lost & Found Center</option>
+                                    <option value="Returned to Owner" {% if f.item.status=='Returned to Owner'
+                                        %}selected{% endif %}>Returned to Owner</option>
+                                    <option value="Pending Verification" {% if f.item.status=='Pending Verification'
+                                        %}selected{% endif %}>Pending Verification</option>
                                 </select>
                                 <button type="submit" class="btn btn-primary">Update Status</button>
                             </div>
@@ -561,7 +583,7 @@
                                 <span class="match-badge">{{ f.matches|length }}</span>
                                 {% endif %}
                             </h4>
-                            
+
                             {% if f.matches %}
                             <div class="matches-list">
                                 {% for m in f.matches %}
@@ -575,28 +597,28 @@
                                     <div class="item-details">
                                         <span class="detail-label">Location:</span>
                                         <span>{{ m.location }}</span>
-                                        
+
                                         <span class="detail-label">Date Lost:</span>
                                         <span>{{ m.date }}</span>
-                                        
+
                                         <span class="detail-label">Description:</span>
                                         <span>{{ m.description }}</span>
-                                        
+
                                         {% if m.image_path %}
                                         <span class="detail-label">Image:</span>
-                                        <img src="{{ url_for('static', filename=m.image_path) }}" 
-                                             alt="Lost item image" class="match-image">
+                                        <img src="{{ url_for('static', filename=m.image_path) }}" alt="Lost item image"
+                                            class="match-image">
                                         {% endif %}
                                     </div>
-                                    
+
                                     <!-- Verify Match Form -->
                                     {% if f.item.status != 'Returned to Owner' and m.status != 'Returned to Owner' %}
                                     <div class="action-buttons">
                                         <form action="{{ url_for('verify_match') }}" method="POST">
                                             <input type="hidden" name="found_id" value="{{ f.item.id }}">
                                             <input type="hidden" name="lost_id" value="{{ m.id }}">
-                                            <button type="submit" class="btn btn-success" 
-                                                    onclick="return confirm('Mark these items as returned to owner? This action cannot be undone.')">
+                                            <button type="submit" class="btn btn-success"
+                                                onclick="return confirm('Mark these items as returned to owner? This action cannot be undone.')">
                                                 ✅ Mark as Returned
                                             </button>
                                         </form>
@@ -640,20 +662,20 @@
                         <div class="item-details">
                             <span class="detail-label">Category:</span>
                             <span>{{ p.category }}</span>
-                            
+
                             <span class="detail-label">Location:</span>
                             <span>{{ p.location }}</span>
-                            
+
                             <span class="detail-label">Date:</span>
                             <span>{{ p.date }}</span>
-                            
+
                             {% if p.image_path %}
                             <span class="detail-label">Image:</span>
-                            <img src="{{ url_for('static', filename=p.image_path) }}" 
-                                 alt="Pending item image" class="match-image">
+                            <img src="{{ url_for('static', filename=p.image_path) }}" alt="Pending item image"
+                                class="match-image">
                             {% endif %}
                         </div>
-                        
+
                         <!-- Update Status Form for Pending Items -->
                         <form action="{{ url_for('update_status', item_id=p.id) }}" method="POST" class="status-form">
                             <div class="form-group">
@@ -679,39 +701,39 @@
     </div>
 
     <script>
-        // Add confirmation for status updates
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
-    const statusForms = document.querySelectorAll('.status-form');
+            const statusForms = document.querySelectorAll('.status-form');
 
-    statusForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
+            statusForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
 
-            const statusSelect = this.querySelector('select[name="status"]');
-            const newStatus = statusSelect.value;
+                    const statusSelect = this.querySelector('select[name="status"]');
+                    const newStatus = statusSelect.value;
 
-            const itemCard = this.closest('.item-card') || this.closest('.pending-card');
-            const itemTitle = itemCard ? itemCard.querySelector('.item-title, .pending-title').textContent : 'this item';
+                    const itemCard = this.closest('.item-card') || this.closest('.pending-card');
+                    const itemTitle = itemCard ? itemCard.querySelector('.item-title, .pending-title').textContent : 'this item';
 
-            // Confirmation for returned items
-            if (newStatus === 'Returned to Owner') {
-                if (!confirm(`Are you sure you want to mark "${itemTitle}" as returned? This will update the item status.`)) {
-                    e.preventDefault();
-                    return;
-                }
-            }
+                    // Confirmation for returned items
+                    if (newStatus === 'Returned to Owner') {
+                        if (!confirm(`Are you sure you want to mark "${itemTitle}" as returned? This will update the item status.`)) {
+                            e.preventDefault();
+                            return;
+                        }
+                    }
 
-            // Add loading state AFTER confirmation
-            const button = this.querySelector('button[type="submit"]');
-            if (button) {
-                button.disabled = true;
-                button.innerHTML = 'Processing...';
-            }
+                    // Add loading state AFTER confirmation
+                    const button = this.querySelector('button[type="submit"]');
+                    if (button) {
+                        button.disabled = true;
+                        button.innerHTML = 'Processing...';
+                    }
+
+                });
+            });
 
         });
-    });
-
-});        
     </script>
 </body>
+
 </html>
