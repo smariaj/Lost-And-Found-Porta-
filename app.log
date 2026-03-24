@@ -2049,3 +2049,44 @@ jinja2.exceptions.TemplateNotFound: 500.html
 2026-03-24 12:06:56,404 INFO root Email sent to pictofesteventpco@gmail.com
 2026-03-24 12:06:56,407 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:56] "[32mPOST /update_status/10 HTTP/1.1[0m" 302 -
 2026-03-24 12:06:56,433 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 12:06:56] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-24 14:12:52,003 INFO werkzeug [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-24 14:12:52,004 INFO werkzeug [33mPress CTRL+C to quit[0m
+2026-03-24 14:12:52,007 INFO werkzeug  * Restarting with stat
+2026-03-24 14:12:53,245 WARNING werkzeug  * Debugger is active!
+2026-03-24 14:12:53,251 INFO werkzeug  * Debugger PIN: 134-981-283
+2026-03-24 14:13:07,584 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:07] "GET / HTTP/1.1" 200 -
+2026-03-24 14:13:10,193 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:10] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-03-24 14:13:10,215 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:10] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2026-03-24 14:13:10,328 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:10] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-24 14:13:12,129 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:12] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-24 14:13:12,222 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:12] "GET /login HTTP/1.1" 200 -
+2026-03-24 14:13:22,463 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:22] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 14:13:22,632 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:22] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 14:13:30,217 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:30] "[32mPOST /delete_item/9 HTTP/1.1[0m" 302 -
+2026-03-24 14:13:30,239 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:30] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 14:13:58,574 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:13:58] "GET /add_item HTTP/1.1" 200 -
+2026-03-24 14:14:48,327 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:14:48] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-24 14:14:48,346 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:14:48] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 14:14:55,280 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:14:55] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-24 14:14:55,289 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:14:55] "GET /login HTTP/1.1" 200 -
+2026-03-24 14:15:12,857 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:15:12] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 14:15:12,890 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:15:12] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 14:15:20,116 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:15:20] "[32mPOST /delete_item/10 HTTP/1.1[0m" 302 -
+2026-03-24 14:15:20,149 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:15:20] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 14:15:22,787 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:15:22] "GET /add_item HTTP/1.1" 200 -
+2026-03-24 14:16:07,009 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:07] "[32mPOST /add_item HTTP/1.1[0m" 302 -
+2026-03-24 14:16:07,062 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:07] "GET /dashboard HTTP/1.1" 200 -
+2026-03-24 14:16:17,674 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:17] "[32mGET /logout HTTP/1.1[0m" 302 -
+2026-03-24 14:16:17,689 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:17] "GET /login HTTP/1.1" 200 -
+2026-03-24 14:16:29,779 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:29] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-03-24 14:16:29,813 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:29] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-24 14:16:52,017 INFO root Email sent to mariajshaikh07@gmail.com
+2026-03-24 14:16:57,035 INFO root Email sent to pictofesteventpco@gmail.com
+2026-03-24 14:16:57,039 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:57] "[32mPOST /verify_match HTTP/1.1[0m" 302 -
+2026-03-24 14:16:57,068 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:16:57] "GET /admin_dashboard HTTP/1.1" 200 -
+2026-03-24 14:20:39,354 INFO werkzeug  * Detected change in 'C:\\projects\\lostandfound\\app_copy.py', reloading
+2026-03-24 14:20:39,577 INFO werkzeug  * Restarting with stat
+2026-03-24 14:20:41,247 WARNING werkzeug  * Debugger is active!
+2026-03-24 14:20:41,254 INFO werkzeug  * Debugger PIN: 134-981-283
+2026-03-24 14:21:13,898 INFO werkzeug 127.0.0.1 - - [24/Mar/2026 14:21:13] "GET /admin_dashboard HTTP/1.1" 200 -

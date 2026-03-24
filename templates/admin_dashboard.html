@@ -502,13 +502,13 @@
             </div>
             <div class="stat-card">
                 <div class="stat-number">
-                    {{ found_items_with_matches|selectattr('matches')|map('length')|sum }}
+                    {{ total_matches_count }}
                 </div>
                 <div class="stat-label">Potential Matches</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">
-                    {{ found_items_with_matches|selectattr('item.status', 'equalto', 'Returned to Owner')|list|length }}
+                    {{ returned_items_count }}
                 </div>
                 <div class="stat-label">Items Returned</div>
             </div>

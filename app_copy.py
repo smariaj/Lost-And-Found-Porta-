@@ -217,9 +217,9 @@ def find_image_matches(new_item):
     
     try:
         if new_item.item_type == 'Found':
-            potential_matches = Item.query.filter_by(item_type='Lost').all()
+            potential_matches = Item.query.filter(Item.item_type == 'Lost', Item.status != 'Returned to Owner').all()
         else:
-            potential_matches = Item.query.filter_by(item_type='Found').all()
+            potential_matches = Item.query.filter(Item.item_type == 'Found', Item.status != 'Returned to Owner').all()
 
         matches = []
         hash_new = imagehash.average_hash(Image.open(os.path.join('static', new_item.image_path)))
@@ -242,9 +242,9 @@ def find_image_matches(new_item):
 # ------------------ TEXT MATCHING ------------------
 def find_text_matches(new_item):
     if new_item.item_type == 'Found':
-        potential_matches = Item.query.filter_by(item_type='Lost').all()
+        potential_matches = Item.query.filter(Item.item_type == 'Lost', Item.status != 'Returned to Owner').all()
     else:
-        potential_matches = Item.query.filter_by(item_type='Found').all()
+        potential_matches = Item.query.filter(Item.item_type == 'Found', Item.status != 'Returned to Owner').all()
 
     matches = []
 
@@ -432,16 +432,22 @@ def admin_dashboard():
     pending_items = Item.query.filter_by(status='Pending Verification').order_by(Item.created_at.desc()).all()
 
     found_items_with_matches = []
+    total_matches_count = 0
     for f_item in found_items:
         text_matches = find_text_matches(f_item)
         image_matches = find_image_matches(f_item)
         all_matches = list({m.id: m for m in text_matches + image_matches}.values())
         found_items_with_matches.append({'item': f_item, 'matches': all_matches})
+        total_matches_count += len(all_matches)
+
+    returned_items_count = Item.query.filter_by(status='Returned to Owner').count()
 
     return render_template('admin_dashboard.html',
                        found_items_with_matches=found_items_with_matches,
                        lost_items=lost_items,
-                       pending_items=pending_items)
+                       pending_items=pending_items,
+                       total_matches_count=total_matches_count,
+                       returned_items_count=returned_items_count)
 
 @app.route('/admin_history')
 @login_required
@@ -464,6 +470,25 @@ def update_status(item_id):
         db.session.commit()
         
         if status_changed_to_returned:
+            text_matches = find_text_matches(item)
+            image_matches = find_image_matches(item)
+            all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+
+            if len(all_matches) == 1:
+                best_match = all_matches[0]
+                best_match.status = 'Returned to Owner'
+                db.session.commit()
+                
+                match_user = User.query.get(best_match.user_id)
+                if match_user:
+                    if best_match.item_type == 'Found':
+                        send_returned_email_to_finder(match_user.email, best_match)
+                    elif best_match.item_type == 'Lost':
+                        send_returned_email_to_owner(match_user.email, best_match)
+                flash(f"Automatically marked corresponding matched item '{best_match.title}' as returned.", 'success')
+            elif len(all_matches) > 1:
+                flash("Multiple matches existed. Only this item was returned. Use 'Verify Match' next time to update pairs explicitly.", 'warning')
+
             user = User.query.get(item.user_id)
             if user:
                 if item.item_type == 'Found':
@@ -573,7 +598,8 @@ def add_item():
             category=category,
             location=location,
             date=date,
-            image_path=image_path
+            image_path=image_path,
+            status='With Finder' if item_type == 'Found' else 'Lost'
         )
         
         db.session.add(new_item)
