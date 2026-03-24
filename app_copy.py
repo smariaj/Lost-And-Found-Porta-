@@ -18,7 +18,7 @@ load_dotenv()
 
 # ------------------ CREATE FLASK APP ------------------
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/lostfound_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/lostfound_db'
 app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 
 # ------------------ DATABASE & LOGIN ------------------
@@ -188,26 +188,43 @@ def send_returned_email_to_owner(owner_email, item):
         html_content=html_content
     )
 
+# MATCHING EMAIL FUNCTION
+def send_match_email(to_email, found_item, lost_item):
+    html_content = f"""
+    <div style="font-family: Arial, sans-serif; padding:20px;">
+        <h2 style="color:#ffc107;">Lost & Found Portal - Potential Match!</h2>
+        <hr>
 
-def send_match_email(to_email, new_item, matched_item):
-    try:
-        subject = "Lost & Found Match Alert!"
-        body = f"""Hi,
+        <p>Hello,</p>
 
-A potential match has been found for your item:
+        <p>A potential match has been found for your lost item! Kindly check if it's the item you were looking for.</p>
 
-Your Item: {matched_item.title} ({matched_item.item_type})
-Matched With: {new_item.title} ({new_item.item_type})
-Location: {new_item.location}, Date: {new_item.date}
+        <div style="background-color:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;">
+            <strong>Your Lost Item:</strong> {lost_item.title} ({lost_item.category})<br>
+            <strong>Reported Lost At:</strong> {lost_item.location}
+        </div>
 
-Please login to review this match.
+        <p>We found an item that might be yours:</p>
+        <div style="background-color:#e9ecef; padding:15px; border-radius:8px; margin:15px 0;">
+            <strong>Found Item:</strong> {found_item.title} ({found_item.category})<br>
+            <strong>Found At:</strong> {found_item.location}<br>
+            <strong>Date:</strong> {found_item.date}
+        </div>
 
-Best regards,
-Lost & Found Team"""
-        msg = Message(subject, recipients=[to_email], body=body)
-        mail.send(msg)
-    except Exception as e:
-        logging.error(f"Failed to send email: {e}")
+        <p>Log in to your dashboard to review this match and check if it's the correct item.</p>
+
+        <br>
+        <p style="font-size:12px; color:gray;">
+            This is an automated email from Lost & Found Portal.
+        </p>
+    </div>
+    """
+
+    send_html_email(
+        subject="Potential Match Found for Your Lost Item!",
+        recipient=to_email,
+        html_content=html_content
+    )
 
 
 # ------------------ IMAGE MATCHING ------------------
@@ -315,7 +332,11 @@ def internal_error(error):
 # ------------------ ROUTES ------------------
 @app.route('/')
 def index():
-    return render_template('index.html')
+    recent_found_items = Item.query.filter_by(
+        item_type='Found',
+        status='With Finder'
+    ).order_by(Item.created_at.desc()).limit(6).all()
+    return render_template('index.html', recent_found_items=recent_found_items)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -582,12 +603,19 @@ def add_item():
         text_matches = find_text_matches(new_item)
         image_matches = find_image_matches(new_item)
         all_matches = list({m.id: m for m in text_matches + image_matches}.values())
-        '''if matches:
-            match_titles = ', '.join([m.title for m in matches[:3]])
-            flash(f"Item reported! Potential matches: {match_titles}", 'success')
-        else:
-            flash('Item reported successfully!', 'success')'''
+
+        # Send match emails
         if all_matches:
+            for match in all_matches:
+                if new_item.item_type == 'Found':
+                    # match is 'Lost', so we inform the owner of the lost item
+                    lost_user = User.query.get(match.user_id)
+                    if lost_user:
+                        send_match_email(lost_user.email, found_item=new_item, lost_item=match)
+                elif new_item.item_type == 'Lost':
+                    # new_item is 'Lost', match is 'Found'. Inform the current user.
+                    send_match_email(current_user.email, found_item=match, lost_item=new_item)
+
             match_titles = ', '.join([m.title for m in all_matches[:3]])
             flash(f"Item reported! Potential matches: {match_titles}", 'success')
         else:
@@ -686,5 +714,5 @@ def init_db():
 if __name__ == '__main__':
     init_db()
     print("Server starting...")
-    print("Admin: admin@lostfound.com / Admin123!")
+    print("Admin: pictlostandfound@gmail.com / Admin123!")
     app.run(debug=True, port=5000)
