@@ -13,8 +13,15 @@ from datetime import datetime
 import re
 from dotenv import load_dotenv
 import os
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer, util
+
 
 load_dotenv()
+
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # ------------------ CREATE FLASK APP ------------------
 app = Flask(__name__)
@@ -188,91 +195,187 @@ def send_returned_email_to_owner(owner_email, item):
         html_content=html_content
     )
 
+# MATCHING EMAIL FUNCTION
+def send_match_email(to_email, found_item, lost_item):
+    html_content = f"""
+    <div style="font-family: Arial, sans-serif; padding:20px;">
+        <h2 style="color:#ffc107;">Lost & Found Portal - Potential Match!</h2>
+        <hr>
 
-def send_match_email(to_email, new_item, matched_item):
-    try:
-        subject = "Lost & Found Match Alert!"
-        body = f"""Hi,
+        <p>Hello,</p>
 
-A potential match has been found for your item:
+        <p>A potential match has been found for your lost item! Kindly check if it's the item you were looking for.</p>
 
-Your Item: {matched_item.title} ({matched_item.item_type})
-Matched With: {new_item.title} ({new_item.item_type})
-Location: {new_item.location}, Date: {new_item.date}
+        <div style="background-color:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;">
+            <strong>Your Lost Item:</strong> {lost_item.title} ({lost_item.category})<br>
+            <strong>Reported Lost At:</strong> {lost_item.location}
+        </div>
 
-Please login to review this match.
+        <p>We found an item that might be yours:</p>
+        <div style="background-color:#e9ecef; padding:15px; border-radius:8px; margin:15px 0;">
+            <strong>Found Item:</strong> {found_item.title} ({found_item.category})<br>
+            <strong>Found At:</strong> {found_item.location}<br>
+            <strong>Date:</strong> {found_item.date}
+        </div>
 
-Best regards,
-Lost & Found Team"""
-        msg = Message(subject, recipients=[to_email], body=body)
-        mail.send(msg)
-    except Exception as e:
-        logging.error(f"Failed to send email: {e}")
+        <p>Log in to your dashboard to review this match and check if it's the correct item.</p>
+
+        <br>
+        <p style="font-size:12px; color:gray;">
+            This is an automated email from Lost & Found Portal.
+        </p>
+    </div>
+    """
+
+    send_html_email(
+        subject="Potential Match Found for Your Lost Item!",
+        recipient=to_email,
+        html_content=html_content
+    )
 
 
 # ------------------ IMAGE MATCHING ------------------
-def find_image_matches(new_item):
-    if not new_item.image_path or not os.path.exists(os.path.join('static', new_item.image_path)):
+def find_image_matches(new_item, candidates):
+    if not new_item.image_path:
         return []
     
+    matches = []
+    
     try:
-        if new_item.item_type == 'Found':
-            potential_matches = Item.query.filter(Item.item_type == 'Lost', Item.status != 'Returned to Owner').all()
-        else:
-            potential_matches = Item.query.filter(Item.item_type == 'Found', Item.status != 'Returned to Owner').all()
+        hash_new = imagehash.average_hash(
+            Image.open(os.path.join('static', new_item.image_path))
+        )
 
-        matches = []
-        hash_new = imagehash.average_hash(Image.open(os.path.join('static', new_item.image_path)))
-        
-        for item in potential_matches:
+        for item in candidates:
             if not item.image_path:
                 continue
+            
             try:
-                hash_existing = imagehash.average_hash(Image.open(os.path.join('static', item.image_path)))
+                hash_existing = imagehash.average_hash(
+                    Image.open(os.path.join('static', item.image_path))
+                )
+
                 if hash_new - hash_existing < 5:
                     matches.append(item)
+
             except Exception:
                 continue
-                
+
         return matches
+
     except Exception as e:
         logging.error(f"Image matching error: {e}")
         return []
 
 # ------------------ TEXT MATCHING ------------------
-def find_text_matches(new_item):
-    if new_item.item_type == 'Found':
-        potential_matches = Item.query.filter(Item.item_type == 'Lost', Item.status != 'Returned to Owner').all()
-    else:
-        potential_matches = Item.query.filter(Item.item_type == 'Found', Item.status != 'Returned to Owner').all()
+'''def find_text_matches(new_item):
+    stop_words = {
+        "the", "is", "a", "an", "of", "to", "with", "and", "this",
+        "that", "in", "on", "for", "has", "have", "belongs"
+    }
+
+    items = Item.query.filter(
+        Item.id != new_item.id,
+        Item.status != "Returned to Owner",
+        Item.item_type != new_item.item_type
+    ).all()
 
     matches = []
 
-    for item in potential_matches:
-        score = 0
+    new_desc = (new_item.description or "").lower().strip()
+    new_words = set(w for w in new_desc.split() if w not in stop_words)
 
-        # Title match
-        if new_item.title.lower() in item.title.lower() or item.title.lower() in new_item.title.lower():
-            score += 2
+    for item in items:
+        # 🔴 HARD CATEGORY FILTER
+        if new_item.category and item.category:
+            if new_item.category.lower() != item.category.lower():
+                continue
 
-        # Description match (NEW - important)
-        if any(word in item.description.lower() for word in new_item.description.lower().split()):
-            score += 2
+        item_desc = (item.description or "").lower().strip()
+        item_words = set(w for w in item_desc.split() if w not in stop_words)
 
-        # Category match
-        if item.category.lower() == new_item.category.lower():
-            score += 1
+        common_words = new_words.intersection(item_words)
 
-        # Location match
-        if new_item.location.lower() in item.location.lower():
-            score += 1
+        if len(common_words) == 0:
+            continue
 
-        # Final decision
-        if score >= 3:   # threshold
+        score = len(common_words) * 2
+
+        # location
+        if new_item.location and item.location:
+            if new_item.location.lower() == item.location.lower():
+                score += 1
+
+        # date
+        if new_item.date and item.date:
+            if new_item.date == item.date:
+                score += 1
+
+        # keyword boost
+        important_keywords = {"diary", "wallet", "phone", "watch", "bag", "planner"}
+        if any(word in important_keywords for word in common_words):
+            score += 3
+
+        if score >= 4:
             matches.append(item)
 
-    return matches
+    return matches'''
 
+def find_text_matches(new_item):
+    # ✅ Step 1: Smart DB filtering
+    items = Item.query.filter(
+        Item.id != new_item.id,
+        Item.status != "Returned to Owner",
+        Item.item_type != new_item.item_type,
+        Item.category == new_item.category
+    ).all()
+
+    if not items:
+        return []
+
+    # ✅ Step 2: Prepare descriptions
+    new_desc = (new_item.description or "").strip()
+    item_list = []
+    corpus = [new_desc]
+
+    for item in items:
+        desc = (item.description or "").strip()
+        corpus.append(desc)
+        item_list.append(item)
+
+    # ✅ Step 3: Convert to embeddings (semantic vectors)
+    embeddings = model.encode(corpus, convert_to_tensor=True)
+
+    # First vector = new_item
+    new_embedding = embeddings[0]
+    item_embeddings = embeddings[1:]
+
+    # ✅ Step 4: Compute similarity
+    scores = util.cos_sim(new_embedding, item_embeddings)[0]
+
+    matches = []
+
+    for i, score in enumerate(scores):
+        item = item_list[i]
+        final_score = float(score)
+
+        # 🔥 Boost with structured data
+        if new_item.location and item.location:
+            if new_item.location.lower() == item.location.lower():
+                final_score += 0.15
+
+        if new_item.date and item.date:
+            if new_item.date == item.date:
+                final_score += 0.15
+
+        # 🔥 Strong threshold (IMPORTANT)
+        if final_score >= 0.55:
+            matches.append((item, final_score))
+
+    # ✅ Step 5: Sort best first
+    matches.sort(key=lambda x: x[1], reverse=True)
+
+    return [m[0] for m in matches]
 # ------------------ VALIDATION ------------------
 def is_valid_email(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -315,7 +418,11 @@ def internal_error(error):
 # ------------------ ROUTES ------------------
 @app.route('/')
 def index():
-    return render_template('index.html')
+    recent_found_items = Item.query.filter_by(
+        item_type='Found',
+        status='With Finder'
+    ).order_by(Item.created_at.desc()).limit(6).all()
+    return render_template('index.html', recent_found_items=recent_found_items)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -388,7 +495,7 @@ def dashboard():
     filter_category = request.args.get('category', '').strip()
     filter_location = request.args.get('location', '').strip()
 
-    query = Item.query.filter_by(user_id=current_user.id)
+    query = Item.query.filter(Item.user_id == current_user.id, Item.status != 'Returned to Owner')
     
     if search_title:
         query = query.filter(Item.title.ilike(f"%{search_title}%"))
@@ -403,9 +510,18 @@ def dashboard():
     items_with_matches = []
     
     for item in items:
+        #text_matches = find_text_matches(item)
+        #image_matches = find_image_matches(item)
+        #all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+        #text_matches = find_text_matches(item)
+        #image_matches = find_image_matches(item, text_matches)
+        #all_matches = image_matches
         text_matches = find_text_matches(item)
-        image_matches = find_image_matches(item)
-        all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+        image_matches = find_image_matches(item, text_matches)
+        image_match_ids = {m.id for m in image_matches}
+        for m in text_matches:
+            m.image_matched = m.id in image_match_ids
+        all_matches = text_matches
         items_with_matches.append({'item': item, 'matches': all_matches})
 
     return render_template('dashboard.html', 
@@ -434,9 +550,18 @@ def admin_dashboard():
     found_items_with_matches = []
     total_matches_count = 0
     for f_item in found_items:
+        #text_matches = find_text_matches(f_item)
+        #image_matches = find_image_matches(f_item)
+        #all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+        #text_matches = find_text_matches(f_item)
+        #image_matches = find_image_matches(f_item, text_matches)
+        #all_matches = image_matches
         text_matches = find_text_matches(f_item)
-        image_matches = find_image_matches(f_item)
-        all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+        image_matches = find_image_matches(f_item, text_matches)
+        image_match_ids = {m.id for m in image_matches}
+        for m in text_matches:
+            m.image_matched = m.id in image_match_ids
+        all_matches = text_matches
         found_items_with_matches.append({'item': f_item, 'matches': all_matches})
         total_matches_count += len(all_matches)
 
@@ -471,8 +596,11 @@ def update_status(item_id):
         
         if status_changed_to_returned:
             text_matches = find_text_matches(item)
-            image_matches = find_image_matches(item)
-            all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+            image_matches = find_image_matches(item, text_matches)
+            image_match_ids = {m.id for m in image_matches}
+            for m in text_matches:
+                m.image_matched = m.id in image_match_ids
+            all_matches = text_matches
 
             if len(all_matches) == 1:
                 best_match = all_matches[0]
@@ -605,15 +733,33 @@ def add_item():
         db.session.add(new_item)
         db.session.commit()
 
+        #text_matches = find_text_matches(new_item)
+        #image_matches = find_image_matches(new_item)
+        #all_matches = list({m.id: m for m in text_matches + image_matches}.values())
+
+       # text_matches = find_text_matches(new_item)
+        #image_matches = find_image_matches(new_item, text_matches)
+        #all_matches = image_matches
+
         text_matches = find_text_matches(new_item)
-        image_matches = find_image_matches(new_item)
-        all_matches = list({m.id: m for m in text_matches + image_matches}.values())
-        '''if matches:
-            match_titles = ', '.join([m.title for m in matches[:3]])
-            flash(f"Item reported! Potential matches: {match_titles}", 'success')
-        else:
-            flash('Item reported successfully!', 'success')'''
+        image_matches = find_image_matches(new_item, text_matches)
+        image_match_ids = {m.id for m in image_matches}
+        for m in text_matches:
+            m.image_matched = m.id in image_match_ids
+        all_matches = text_matches
+
+        # Send match emails
         if all_matches:
+            for match in all_matches:
+                if new_item.item_type == 'Found':
+                    # match is 'Lost', so we inform the owner of the lost item
+                    lost_user = User.query.get(match.user_id)
+                    if lost_user:
+                        send_match_email(lost_user.email, found_item=new_item, lost_item=match)
+                elif new_item.item_type == 'Lost':
+                    # new_item is 'Lost', match is 'Found'. Inform the current user.
+                    send_match_email(current_user.email, found_item=match, lost_item=new_item)
+
             match_titles = ', '.join([m.title for m in all_matches[:3]])
             flash(f"Item reported! Potential matches: {match_titles}", 'success')
         else:
@@ -712,5 +858,5 @@ def init_db():
 if __name__ == '__main__':
     init_db()
     print("Server starting...")
-    print("Admin: admin@lostfound.com / Admin123!")
+    print("Admin: pictlostandfound@gmail.com / Admin123!")
     app.run(debug=True, port=5000)
